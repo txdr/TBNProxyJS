@@ -1,0 +1,15 @@
+{
+  "name": "tbnproxy",
+  "version": "1.0.0",
+  "description": "TBNProxy ",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --no-warnings ./src/TBNProxy.js"
+  },
+  "author": "shay",
+  "license": "ISC",
+  "dependencies": {
+    "bedrock-protocol": "^3.41.0"
+  }
+}
