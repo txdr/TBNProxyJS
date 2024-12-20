@@ -113,7 +113,7 @@ function start() {
         new TBNProxy(socket, address);
     });
 }
-start();//
+start();
 
 export default TBNProxy;
 

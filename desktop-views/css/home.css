@@ -1,0 +1,116 @@
+body {
+    background: black;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.footer {
+    color: gray;
+    z-index: 100;
+    top: 90%;
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    opacity: 0;
+}
+
+.footer p {
+    font-family: Quicksand, sans-serif;
+    margin: 2%;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.footer p:hover {
+    transition: 0.3s;
+    color: white;
+    cursor: pointer;
+}
+
+.footer p:not(:hover) {
+    transition: 0.3s;
+    color: gray;
+}
+
+.home {
+    z-index: -1;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Quicksand, sans-serif;
+    text-decoration: none;
+}
+
+.home p {
+    font-size: 25px;
+    color: white;
+    opacity: 0;
+    font-family: Quicksand, sans-serif;
+}
+
+.home input {
+    width: 300px;
+    height: 20px;
+    background-color: gray;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.home input::placeholder {
+    color: white;
+    opacity: 0.7;
+}
+
+.home h1 {
+    font-family: Quicksand, sans-serif;
+    font-size: 45px;
+    color: white;
+    opacity: 0;
+}
+
+.home p:hover {
+    transition: 0.3s;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.home p:not(:hover) {
+    transition: 0.3s;
+    font-size: 25px;
+}
+
+.loading-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    z-index: 999;
+}
+
+@-webkit-keyframes svg-text-anim {
+    40% {
+        stroke-dashoffset: 0;
+        fill: transparent;
+    }
+    60% {
+        stroke-dashoffset: 0;
+        fill: #ffffff;
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke: black;
+        fill: black;
+    }
+}

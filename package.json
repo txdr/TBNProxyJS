@@ -7,7 +7,7 @@
   "scripts": {
     "test": "node --no-warnings TBNProxy.js",
     "test-d": "npx electron --trace-warnings --no-sandbox ./index.js",
-    "build": "npx electron-packager ./ TBNProxyFull --platform=win32 --arch=x64 && npx pkg -t node*-win-x64 --out-path TBNProxyFull-win32-x64 --debug ./proxy.js"
+    "build": "npx electron-packager ./ TBNProxyFull --platform=win32 --arch=x64"
   },
   "author": "shay",
   "license": "ISC",
