@@ -1,0 +1,16 @@
+body {
+    background: black;
+    text-align: center;
+    color: white;
+}
+
+button {
+    width: 200px;
+    height: 40px;
+}
+
+input {
+    width: 200px;
+    height: 40px;
+}
+

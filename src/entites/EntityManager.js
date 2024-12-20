@@ -11,6 +11,10 @@ class EntityManager {
         this.entities.set(entity.getRuntimeID(), entity);
     }
 
+    /**
+     *
+     * @returns {Entity[]}
+     */
     getEntities() {
         return Array.from(this.entities.values());
     }

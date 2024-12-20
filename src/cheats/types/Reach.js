@@ -9,7 +9,11 @@ class Reach extends CheatHandler {
             "distance",
             "How far you can reach in blocks.",
             CheatSetting.TYPE_NUMBER,
-            5.0
+            5.0,
+            [],
+            0.01,
+            1,
+            7
         ));
     }
 

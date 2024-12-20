@@ -11,13 +11,21 @@ class HitBox extends CheatHandler {
             "width",
             "Width of the hitboxes.",
             CheatSetting.TYPE_NUMBER,
-            0.7
+            0.7,
+            [],
+            0.01,
+            0.01,
+            5
         ));
         this.addSetting(new CheatSetting(
             "height",
             "Height of the hitboxes.",
             CheatSetting.TYPE_NUMBER,
-            2.1
+            2.1,
+            [],
+            0.01,
+            0.01,
+            5
         ));
     }
 

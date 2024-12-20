@@ -9,7 +9,7 @@ class HelpCommand extends CommandHandler {
     }
 
     execute(args) {
-        ClientPlayer.getInstance().sendMessage("&r&cTBN&fClient Help\n" +
+        ClientPlayer.getInstance().sendMessage("&r&cTBN&fProxy Help\n" +
             CommandManager.getInstance().getCommands().map(
                 (value, index) => `&r&7${index + 1}. &f${value.getName()}&7: ${value.getDescription()}`
             ).join("\n")

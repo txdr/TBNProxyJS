@@ -1,5 +1,3 @@
-import ClientPlayer from "../../players/ClientPlayer.js";
-import TBNProxy from "../../TBNProxy.js";
 import PacketHandler from "../PacketHandler.js";
 import CheatManager from "../../cheats/CheatManager.js";
 

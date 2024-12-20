@@ -4,12 +4,31 @@ class CheatSetting {
     static TYPE_ENUM = 1;
     static TYPE_NUMBER = 2;
 
-    constructor(name, description, type, defaultValue, enums = []) {
+    constructor(name, description, type, defaultValue, enums = [], step = 0, min = 0, max = 0) {
         this.name = name;
         this.description = description;
         this.type = type;
         this.value = defaultValue;
         this.enums = enums;
+        this.step = step;
+        this.min = min;
+        this.max = max;
+    }
+
+    getEnums() {
+        return this.enums;
+    }
+
+    getStep() {
+        return this.step;
+    }
+
+    getMin() {
+        return this.min;
+    }
+
+    getMax() {
+        return this.max;
     }
 
     getName() {

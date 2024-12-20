@@ -5,7 +5,6 @@ import CommandManager from "../commands/CommandManager.js";
 import AxisAlignedBB from "../math/AxisAlignedBB.js";
 import PlayerManager from "./PlayerManager.js";
 import CheatManager from "../cheats/CheatManager.js";
-import PacketHelper from "../utils/PacketHelper.js";
 
 class ClientPlayer {
 
@@ -104,12 +103,14 @@ class ClientPlayer {
                     hotbar_slot: this.selectedSlot,
                     player_pos: this.position.toObject(),
                     click_pos: player.getPosition().toObject(),
-                    held_item: this.selectedItem,
+                    held_item: this.selectedItem || { network_id: 0 },
 
                 }
             }
         });
     }
+
+
 
     onSwing() {
         const reach = CheatManager.getInstance().getCheat("reach");

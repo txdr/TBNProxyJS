@@ -2,7 +2,6 @@ import Animate from "./client/Animate.js";
 import MobEquipment from "./client/MobEquipment.js";
 import PlayerAuthInput from "./client/PlayerAuthInput.js";
 import SetLocalPlayerAsInitialized from "./client/SetLocalPlayerAsInitialized.js";
-import PacketHandler from "./PacketHandler.js";
 import AddPlayer from "./server/AddPlayer.js";
 import MoveEntity from "./server/MoveEntity.js";
 import Text from "./client/Text.js";
@@ -10,6 +9,9 @@ import RemoveEntity from "./server/RemoveEntity.js";
 import UpdateAttributes from "./server/UpdateAttributes.js";
 import MobEffect from "./server/MobEffect.js";
 import AddEntity from "./server/AddEntity.js";
+import SetEntityMotion from "./server/SetEntityMotion.js";
+import CommandRequest from "./client/CommandRequest.js";
+import ModalFormResponse from "./client/ModalFormResponse.js";
 
 class PacketManager {
 
@@ -24,6 +26,7 @@ class PacketManager {
         this.clientboundHandlers.set("update_attributes", new UpdateAttributes());
         this.clientboundHandlers.set("mob_effect", new MobEffect());
         this.clientboundHandlers.set("add_entity", new AddEntity());
+        this.clientboundHandlers.set("set_entity_motion", new SetEntityMotion());
 
         this.serverboundHandlers = new Map();
         this.serverboundHandlers.set("set_local_player_as_initialized", new SetLocalPlayerAsInitialized());
@@ -31,6 +34,8 @@ class PacketManager {
         this.serverboundHandlers.set("mob_equipment", new MobEquipment());
         this.serverboundHandlers.set("animate", new Animate());
         this.serverboundHandlers.set("text", new Text());
+        this.serverboundHandlers.set("command_request", new CommandRequest());
+        this.serverboundHandlers.set("modal_form_response", new ModalFormResponse());
     }
 
     handlePacket(name, params, type) {

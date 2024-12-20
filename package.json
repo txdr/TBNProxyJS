@@ -5,11 +5,23 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --no-warnings ./src/TBNProxy.js"
+    "test": "node --no-warnings TBNProxy.js",
+    "test-d": "npx electron --trace-warnings --no-sandbox ./index.js",
+    "build": "npx electron-packager ./ TBNProxyFull --platform=win32 --arch=x64 && npx pkg -t node*-win-x64 --out-path TBNProxyFull-win32-x64 --debug ./proxy.js"
   },
   "author": "shay",
   "license": "ISC",
   "dependencies": {
-    "bedrock-protocol": "^3.41.0"
+    "androidjs": "^2.0.6",
+    "bedrock-protocol": "^3.42.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-packager": "^17.1.2"
+  },
+  "pkg": {
+    "options": ["experimental-modules"]
   }
 }

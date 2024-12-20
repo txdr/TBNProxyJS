@@ -2,6 +2,8 @@ import HelpCommand from "./types/HelpCommand.js";
 import EnableCommand from "./types/EnableCommand.js";
 import DisableCommand from "./types/DisableCommand.js";
 import SettingCommand from "./types/SettingCommand.js";
+import CheatInfoCommand from "./types/CheatInfoCommand.js";
+import TestCommand from "./types/TestCommand.js";
 
 class CommandManager {
 
@@ -14,6 +16,8 @@ class CommandManager {
         this.addCommand(new EnableCommand());
         this.addCommand(new DisableCommand());
         this.addCommand(new SettingCommand());
+        this.addCommand(new CheatInfoCommand());
+        this.addCommand(new TestCommand());
     }
 
     /*** @returns {CommandHandler[]}*/

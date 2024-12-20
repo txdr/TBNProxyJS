@@ -1,5 +1,5 @@
 {
-    "host": "play.plotonium.fr",
-    "port": 19132,
+    "host": "127.0.0.1",
+    "port": 19131,
     "prefix": "+"
 }

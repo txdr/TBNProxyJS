@@ -7,7 +7,7 @@ class Speed extends CheatHandler {
 
     constructor() {
         super("speed", "Give yourself the speed effect.");
-        this.addSetting(new CheatSetting("modifier", "Change the modifier of the speed effect.", CheatSetting.TYPE_NUMBER, 4));
+        this.addSetting(new CheatSetting("modifier", "Change the modifier of the speed effect.", CheatSetting.TYPE_NUMBER, 4, [], 1, 1, 10));
     }
 
     whenEnable() {

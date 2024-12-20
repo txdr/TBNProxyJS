@@ -2,6 +2,7 @@ import Reach from "./types/Reach.js";
 import HitBox from "./types/HitBox.js";
 import Speed from "./types/Speed.js";
 import KillAura from "./types/KillAura.js";
+import Knockback from "./types/Knockback.js";
 
 class CheatManager {
 
@@ -14,6 +15,7 @@ class CheatManager {
         this.addCheat(new HitBox());
         this.addCheat(new Speed());
         this.addCheat(new KillAura());
+        this.addCheat(new Knockback());
     }
 
     addCheat(cheat) {
