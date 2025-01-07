@@ -1,0 +1,165 @@
+body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Nunito", sans-serif;
+    color: #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infoBox {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 12px;
+    width: 300px;
+    height: auto;
+    min-height: 200px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.infoBox::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.infoBox p {
+    margin: 8px 0;
+    font-size: 0.95rem;
+    color: #94a3b8;
+}
+
+.infoBox p[style*="font-size: 20px"] {
+    font-size: 1.25rem !important;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 16px;
+}
+
+.infoBox hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    margin: 16px 0;
+}
+
+button {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: auto;
+    min-width: 140px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+#token {
+    margin-top: 10vh;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+#token p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+input, select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px 16px;
+    width: 100%;
+    max-width: 280px;
+    color: #e2e8f0;
+    font-family: "Nunito", sans-serif;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+#verification-error {
+    color: #f87171;
+    font-size: 0.9rem;
+    margin-top: 12px;
+}
+
+#home {
+    display: none;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    width: 90%;
+    margin: 48px auto;
+    padding: 0 24px;
+}
+
+#proxyStatus {
+    font-weight: 600;
+    margin-top: 16px;
+}
+
+#proxyStatus[style*="color: red"] {
+    color: #f87171 !important;
+}
+
+#proxyStatus[style*="color: green"] {
+    color: #4ade80 !important;
+}
+
+#serverInfo {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin: 12px 0;
+}
+
+#openLink {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+}
+
+#openLink:hover {
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+}
+
+.footer {
+    margin-top: auto;
+    padding: 24px;
+    width: 100%;
+    text-align: center;
+    background: linear-gradient(0deg, rgba(15, 23, 42, 0.9) 0%, transparent 100%);
+    color: #94a3b8;
+    font-size: 0.9rem;
+}

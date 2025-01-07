@@ -1,0 +1,143 @@
+body {
+    background: #111827;
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Nunito", sans-serif;
+    color: #ffffff;
+    padding: 20px;
+}
+
+.infoBox {
+    background: #1f2937;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.infoBox p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #d1d5db;
+}
+
+.infoBox p[style*="font-size: 20px"] {
+    font-size: 18px !important;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.infoBox hr {
+    border: none;
+    height: 1px;
+    background: #374151;
+    margin: 15px auto;
+    width: 100%;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    width: 120px;
+    height: 36px;
+    display: inline-block;
+    text-align: center;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+#token {
+    max-width: 400px;
+    margin: 40px auto;
+    text-align: center;
+    background: #1f2937;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#token p {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+input, select {
+    background: #374151;
+    border: 1px solid #4b5563;
+    border-radius: 4px;
+    padding: 8px 12px;
+    width: 100%;
+    max-width: 250px;
+    height: 36px;
+    color: white;
+    font-family: "Nunito", sans-serif;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+#verification-error {
+    color: #ef4444;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+#home {
+    display: none;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#proxyStatus {
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+#proxyStatus[style*="color: red"] {
+    color: #ef4444 !important;
+}
+
+#proxyStatus[style*="color: green"] {
+    color: #22c55e !important;
+}
+
+#serverInfo {
+    font-size: 14px;
+    color: #9ca3af;
+    margin: 10px 0;
+}
+
+#openLink {
+    background: #6366f1;
+}
+
+#openLink:hover {
+    background: #4f46e5;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #9ca3af;
+    font-size: 14px;
+    margin-top: 40px;
+}

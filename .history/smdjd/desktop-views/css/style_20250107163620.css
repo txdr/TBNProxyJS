@@ -1,0 +1,231 @@
+:root {
+    --primary: #ff0033;
+    --primary-hover: #cc0033;
+    --bg-dark: #000000;
+    --bg-card: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --border-color: #333333;
+    --danger: #ff3333;
+    --success: #00cc66;
+    --accent: #ff0033;
+}
+
+body {
+    background: var(--bg-dark);
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Nunito", sans-serif;
+    color: var(--text-primary);
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infoBox {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: 280px;
+    display: inline-block;
+    margin: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.infoBox::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent);
+}
+
+.infoBox hr {
+    border: none;
+    height: 1px;
+    background: var(--border-color);
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.infoBox p {
+    margin: 0.5rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.infoBox p[style*="font-size: 20px"] {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.6rem 1.2rem;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 140px;
+    display: inline-block;
+    margin: 0.5rem 0;
+}
+
+button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 0 15px rgba(255, 0, 51, 0.3);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#home {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#token {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background: var(--bg-dark);
+    text-align: center;
+}
+
+#token p {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+input, select {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.6rem 1rem;
+    width: 200px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    text-align: center;
+    display: inline-block;
+    margin: 0.5rem 0;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(255, 0, 51, 0.2);
+}
+
+input::placeholder {
+    color: var(--text-secondary);
+}
+
+#verification-error {
+    color: var(--danger);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 0.75rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Status Colors */
+#proxyStatus {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+#proxyStatus[style*="color: red"] {
+    color: var(--danger) !important;
+}
+
+#proxyStatus[style*="color: green"] {
+    color: var(--success) !important;
+}
+
+/* Server Status */
+#serverInfo {
+    background: var(--bg-dark);
+    padding: 0.6rem;
+    border-radius: 4px;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    border: 1px solid var(--border-color);
+}
+
+/* Authentication Section */
+#authMessage {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+#authMessage[style*="color: orange"] {
+    color: #ff9900 !important;
+}
+
+#authMessage[style*="color: green"] {
+    color: var(--success) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .infoBox {
+        width: calc(100% - 2rem);
+        margin: 1rem;
+    }
+    
+    #home {
+        padding: 1rem;
+    }
+    
+    input, select {
+        width: 100%;
+        max-width: 280px;
+    }
+}

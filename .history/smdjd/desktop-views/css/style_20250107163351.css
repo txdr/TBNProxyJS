@@ -1,0 +1,131 @@
+body {
+    background: #1a1a1a;
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Nunito", sans-serif;
+    color: #ffffff;
+}
+
+.infoBox {
+    display: inline-block;
+    margin: 20px;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-radius: 12px;
+    border: 1px solid #3a3a3a;
+    text-align: center;
+    color: white;
+    width: 280px;
+    height: 220px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.infoBox:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.infoBox hr {
+    width: 60%;
+    border: none;
+    height: 1px;
+    background: #3a3a3a;
+    margin: 15px auto;
+}
+
+button {
+    border: none;
+    text-align: center;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.infoBox p {
+    padding: 0;
+    margin: 8px 0;
+}
+
+.infoBox button {
+    background-color: #4a4a4a;
+    color: white;
+    width: 140px;
+    height: 40px;
+    margin: 10px 0;
+}
+
+.infoBox button:hover {
+    background-color: #5a5a5a;
+}
+
+.infoBox button:disabled {
+    background-color: #3a3a3a;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+#home {
+    color: white;
+    padding: 20px;
+}
+
+#token {
+    margin-top: 15%;
+    color: white;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+textarea:focus, input:focus, select:focus {
+    outline: none;
+    border-color: #4a90e2 !important;
+}
+
+input, select {
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 6px;
+    width: 200px;
+    height: 35px;
+    text-align: center;
+    color: white;
+    font-family: "Nunito", sans-serif;
+    transition: border-color 0.2s ease;
+    margin: 5px 0;
+}
+
+input::placeholder {
+    color: #808080;
+}
+
+#verification-error {
+    color: #ff4d4d;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+#home {
+    display: none;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: #808080;
+    text-align: center;
+    padding: 15px;
+    background: #1a1a1a;
+    font-size: 13px;
+    border-top: 1px solid #2a2a2a;
+}

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html data-theme="business">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBNProxy</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        .logo {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%23111827"/><text x="50" y="50" font-family="Arial" font-size="40" fill="white" text-anchor="middle" dominant-baseline="middle">TBN</text><path d="M 75 50 A 25 25 0 1 1 50 25" stroke="%2360A5FA" fill="none" stroke-width="5"/></svg>');
+            background-size: cover;
+            width: 32px;
+            height: 32px;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .gradient-border {
+            position: relative;
+            border-radius: 0.5rem;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(45deg, #60A5FA, #3B82F6);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+        .console {
+            font-family: 'Fira Code', monospace;
+            height: 200px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .console::-webkit-scrollbar {
+            width: 6px;
+        }
+        .console::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .console::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+        .console-line {
+            padding: 2px 8px;
+            border-left: 2px solid transparent;
+        }
+        .console-line.info {
+            border-left-color: #3B82F6;
+        }
+        .console-line.error {
+            border-left-color: #EF4444;
+        }
+        .console-line.success {
+            border-left-color: #10B981;
+        }
+        .console-line .timestamp {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-base-300 to-base-200">
+    <div class="navbar bg-base-100/50 backdrop-blur-md shadow-lg h-12 sticky top-0 z-50">
+        <div class="flex-1 items-center gap-3 px-4">
+            <div class="logo rounded-lg shadow-lg"></div>
+            <span class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">TBNProxy</span>
+        </div>
+    </div>
+
+    <div class="container mx-auto p-4">
+        <!-- Token Verification -->
+        <div id="token" class="card w-96 bg-base-100/50 backdrop-blur-md shadow-xl mx-auto mt-8 animate-fade-in gradient-border">
+            <div class="card-body p-6">
+                <h2 class="card-title text-base mb-4 text-center w-full">Token Verification</h2>
+                <div class="form-control w-full">
+                    <input id="tokenInput" type="text" placeholder="Enter token & press enter" 
+                           class="input input-bordered w-full bg-base-200/50 backdrop-blur-sm transition-all focus:scale-[1.02]" />
+                    <label id="verification-error" class="label py-2">
+                        <span class="label-text-alt text-error text-xs">Not connected (BE)</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div id="home" class="hidden animate-slide-up">
+            <!-- Console Section -->
+            <div class="card bg-base-100/50 backdrop-blur-md shadow-xl mt-8 mb-4">
+                <div class="card-body p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="card-title text-base">Console Output</h2>
+                        <button onclick="clearConsole()" class="btn btn-ghost btn-xs">Clear</button>
+                    </div>
+                    <div class="console bg-base-300/50 backdrop-blur-sm rounded-lg text-xs">
+                        <div class="console-line info">
+                            <span class="timestamp">[12:00:00]</span> System initialized
+                        </div>
+                        <div class="console-line error">
+                            <span class="timestamp">[12:00:01]</span> Failed to connect to server
+                        </div>
+                        <div class="console-line success">
+                            <span class="timestamp">[12:00:02]</span> Connection established
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Proxy Card -->
+                <div id="proxy" class="card bg-base-100/50 backdrop-blur-md shadow-xl">
+                    <div class="card-body p-6">
+                        <h2 class="card-title text-base mb-2">Proxy</h2>
+                        <div class="divider my-2"></div>
+                        <button id="proxyStart" onclick="proxyStart()" 
+                                class="btn btn-primary btn-sm w-full hover:scale-[1.02] transition-transform">
+                                Start Proxy
+                        </button>
+                        <div class="stats bg-base-200/50 backdrop-blur-sm shadow mt-4">
+                            <div class="stat py-2">
+                                <div class="stat-title text-xs opacity-80" id="serverInfo">Server Offline</div>
+                                <div class="stat-desc text-error text-xs font-semibold" id="proxyStatus">Current Status: Offline</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Servers Card -->
+                <div id="servers" class="card bg-base-100/50 backdrop-blur-md shadow-xl">
+                    <div class="card-body p-6">
+                        <h2 class="card-title text-base mb-2">Servers</h2>
+                        <div class="divider my-2"></div>
+                        <div class="form-control">
+                            <label class="label py-1">
+                                <span class="label-text text-xs opacity-80">Add Server</span>
+                            </label>
+                            <input id="addServer" type="text" placeholder="Enter IP and press enter" 
+                                   class="input input-bordered input-sm bg-base-200/50 backdrop-blur-sm w-full transition-all focus:scale-[1.02]" />
+                        </div>
+                        <div class="form-control mt-4">
+                            <label class="label py-1">
+                                <span class="label-text text-xs opacity-80">Select Server</span>
+                            </label>
+                            <select id="serverSelect" class="select select-bordered select-sm bg-base-200/50 backdrop-blur-sm w-full">
+                                <option disabled selected>Pick a server</option>
+                            </select>
+                        </div>
+                        <button onclick="removeServer()" class="btn btn-error btn-sm mt-4 w-full hover:scale-[1.02] transition-transform">
+                            Remove Server
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Authentication Card -->
+                <div id="authentication" class="card bg-base-100/50 backdrop-blur-md shadow-xl">
+                    <div class="card-body p-6">
+                        <h2 class="card-title text-base mb-2">Authentication</h2>
+                        <div class="divider my-2"></div>
+                        <div class="alert alert-error bg-opacity-10 backdrop-blur-sm">
+                            <span id="authMessage" class="text-xs">No Authentication Needed.</span>
+                        </div>
+                        <button id="openLink" class="btn btn-secondary btn-sm mt-4 w-full hover:scale-[1.02] transition-transform">
+                            Open Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer footer-center p-2 bg-base-100/50 backdrop-blur-md text-base-content fixed bottom-0">
+        <aside>
+            <p class="text-xs opacity-60">TBNProxy 2024</p>
+        </aside>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js"></script>
+    <script src="js/home.js"></script>
+    <script>
+        function clearConsole() {
+            const console = document.querySelector('.console');
+            console.innerHTML = '';
+        }
+
+        // Function to add log entry
+        function addLogEntry(message, type = 'info') {
+            const console = document.querySelector('.console');
+            const timestamp = new Date().toLocaleTimeString();
+            const logLine = document.createElement('div');
+            logLine.className = `console-line ${type}`;
+            logLine.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
+            console.appendChild(logLine);
+            console.scrollTop = console.scrollHeight;
+        }
+
+        // Example usage:
+        // addLogEntry('System initialized', 'info');
+        // addLogEntry('Error connecting to server', 'error');
+        // addLogEntry('Connection established', 'success');
+    </script>
+</body>
+</html>

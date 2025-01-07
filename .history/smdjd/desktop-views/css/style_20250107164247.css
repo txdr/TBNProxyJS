@@ -1,0 +1,140 @@
+body {
+    background: #1a1a1a;
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Nunito", sans-serif;
+    color: #ffffff;
+}
+
+.infoBox {
+    display: inline-block;
+    margin: 20px;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-radius: 12px;
+    text-align: center;
+    color: white;
+    width: 280px;
+    height: 220px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.infoBox:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.infoBox hr {
+    width: 60%;
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 15px auto;
+}
+
+button {
+    border: none;
+    text-align: center;
+    padding: 8px 16px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.infoBox p {
+    padding: 0;
+    margin: 8px 0;
+}
+
+.infoBox button {
+    background-color: #4a4a4a;
+    color: white;
+    border-radius: 6px;
+    width: 140px;
+    height: 40px;
+    margin: 10px 0;
+}
+
+.infoBox button:hover {
+    background-color: #5a5a5a;
+    transform: translateY(-1px);
+}
+
+#token {
+    margin-top: 15%;
+    color: white;
+    width: 100%;
+    text-align: center;
+}
+
+textarea:focus, input:focus, select:focus {
+    outline: none;
+}
+
+#token input, #home input, #home select {
+    background: #333333;
+    border: 1px solid #404040;
+    border-radius: 6px;
+    width: 220px;
+    height: 35px;
+    text-align: center;
+    color: white;
+    margin: 8px 0;
+    transition: border-color 0.2s;
+}
+
+#token input:focus, #home input:focus, #home select:focus {
+    border-color: #666666;
+}
+
+#verification-error {
+    color: #ff4444;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+#home {
+    display: none;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    padding: 15px 0;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#proxyStatus {
+    font-weight: 600;
+}
+
+#proxyStatus[style*="color: red"] {
+    color: #ff4444 !important;
+}
+
+#proxyStatus[style*="color: green"] {
+    color: #44ff44 !important;
+}
+
+#serverInfo {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#openLink {
+    background-color: #2d6cdf;
+}
+
+#openLink:hover {
+    background-color: #3d7cef;
+}

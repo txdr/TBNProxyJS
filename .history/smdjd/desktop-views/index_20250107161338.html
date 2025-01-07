@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBNProxy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="token">
+        <p>TBNProxy token verification.</p> <br/>
+        <input id="tokenInput" placeholder="Enter token & press enter"> <br/>
+        <p id="verification-error">Not connected (BE)</p>
+    </div>
+
+    <div id="home">
+        <div id="proxy" class="infoBox">
+            <p style="font-size: 20px;">Proxy</p> <hr/>
+            <button id="proxyStart" onclick="proxyStart()">Start Proxy</button>
+            <p id="serverInfo">Server Offline</p> <br />
+            <p id="proxyStatus" style="color: red;">Current Status: Offline</p>
+        </div>
+
+        <div id="servers" class="infoBox">
+            <p style="font-size: 20px;">Servers</p> <hr/>
+            <p>Add Server</p>
+            <input id="addServer" placeholder="Enter IP and press enter">
+            <p>Select Server</p>
+            <select id="serverSelect"></select> <br/>
+            <button onclick="removeServer()">Remove Server</button>
+        </div>
+
+        <div id="authentication" class="infoBox">
+            <p style="font-size: 20px;">Authentication</p> <hr/>
+            <p id="authMessage" style="color: red;">No Authentication Needed.</p> <br/>
+            <button id="openLink">Open Link</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p style="font-size: 13px;">TBNProxy 2024</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js"></script>
+    <script src="js/home.js"></script>
+</body>

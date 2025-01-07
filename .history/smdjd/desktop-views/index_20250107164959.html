@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html data-theme="business">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBNProxy</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+</head>
+
+<body class="min-h-screen bg-base-300">
+    <div class="navbar bg-base-200 shadow-lg h-12">
+        <div class="flex-1">
+            <a class="btn btn-ghost text-lg p-0">TBNProxy</a>
+        </div>
+    </div>
+
+    <div class="container mx-auto p-2">
+        <!-- Token Verification -->
+        <div id="token" class="card w-96 bg-base-100 shadow-xl mx-auto mt-4">
+            <div class="card-body p-4">
+                <h2 class="card-title text-sm mb-2">Token Verification</h2>
+                <div class="form-control w-full">
+                    <input id="tokenInput" type="text" placeholder="Enter token & press enter" 
+                           class="input input-bordered input-sm w-full" />
+                    <label id="verification-error" class="label py-1">
+                        <span class="label-text-alt text-error text-xs">Not connected (BE)</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div id="home" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
+                <!-- Proxy Card -->
+                <div id="proxy" class="card bg-base-100 shadow-xl">
+                    <div class="card-body p-4">
+                        <h2 class="card-title text-sm mb-1">Proxy</h2>
+                        <div class="divider my-1"></div>
+                        <button id="proxyStart" onclick="proxyStart()" 
+                                class="btn btn-neutral btn-sm">Start Proxy</button>
+                        <div class="stats bg-base-200 shadow mt-2 stats-sm">
+                            <div class="stat py-1">
+                                <div class="stat-title text-xs" id="serverInfo">Server Offline</div>
+                                <div class="stat-desc text-error text-xs" id="proxyStatus">Current Status: Offline</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Servers Card -->
+                <div id="servers" class="card bg-base-100 shadow-xl">
+                    <div class="card-body p-4">
+                        <h2 class="card-title text-sm mb-1">Servers</h2>
+                        <div class="divider my-1"></div>
+                        <div class="form-control">
+                            <label class="label py-0">
+                                <span class="label-text text-xs">Add Server</span>
+                            </label>
+                            <input id="addServer" type="text" placeholder="Enter IP and press enter" 
+                                   class="input input-bordered input-sm w-full" />
+                        </div>
+                        <div class="form-control mt-2">
+                            <label class="label py-0">
+                                <span class="label-text text-xs">Select Server</span>
+                            </label>
+                            <select id="serverSelect" class="select select-bordered select-sm w-full">
+                                <option disabled selected>Pick a server</option>
+                            </select>
+                        </div>
+                        <button onclick="removeServer()" class="btn btn-error btn-sm mt-2">Remove Server</button>
+                    </div>
+                </div>
+
+                <!-- Authentication Card -->
+                <div id="authentication" class="card bg-base-100 shadow-xl">
+                    <div class="card-body p-4">
+                        <h2 class="card-title text-sm mb-1">Authentication</h2>
+                        <div class="divider my-1"></div>
+                        <div class="alert alert-error bg-opacity-20 py-2">
+                            <span id="authMessage" class="text-xs">No Authentication Needed.</span>
+                        </div>
+                        <button id="openLink" class="btn btn-neutral btn-sm mt-2">Open Link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer footer-center p-2 bg-base-200 text-base-content fixed bottom-0">
+        <aside>
+            <p class="text-xs">TBNProxy 2024</p>
+        </aside>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>

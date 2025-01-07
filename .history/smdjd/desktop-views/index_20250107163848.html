@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBNProxy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="token">
+        <p>TBNProxy token verification</p>
+        <input id="tokenInput" placeholder="Enter token & press enter">
+        <p id="verification-error">Not connected (BE)</p>
+    </div>
+
+    <!-- Main Application Layout -->
+    <div id="home">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo">
+                <span>TBN</span><span>Proxy</span>
+            </div>
+            <a href="#" class="nav-item active">
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span>Servers</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span>Cheats</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span>Account</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span>Settings</span>
+            </a>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="content-header">
+                <h1>Saved Servers</h1>
+            </div>
+
+            <!-- Server Management Section -->
+            <div class="server-section">
+                <div class="server-header">
+                    <h2>Add Server</h2>
+                </div>
+                <div class="server-inputs">
+                    <input type="text" placeholder="Server Name" id="serverName">
+                    <input type="text" placeholder="Server IP" id="serverIP">
+                    <input type="text" placeholder="Port" id="serverPort" value="19132">
+                    <button onclick="addServer()">Add Server</button>
+                </div>
+            </div>
+
+            <!-- Server List Section -->
+            <div class="server-section">
+                <div class="server-header">
+                    <h2>Server List</h2>
+                </div>
+                <div class="server-list" id="serverList">
+                    <!-- Server items will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Proxy Status Section -->
+            <div class="server-section">
+                <div class="server-header">
+                    <h2>Proxy Status</h2>
+                </div>
+                <div class="server-item">
+                    <div class="server-item-info">
+                        <div class="status-indicator status-offline" id="proxyStatus">Offline</div>
+                        <p id="serverInfo">Server Offline</p>
+                    </div>
+                    <div class="server-item-actions">
+                        <button id="proxyStart" onclick="proxyStart()">Start Proxy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Authentication Section -->
+            <div class="server-section">
+                <div class="server-header">
+                    <h2>Authentication</h2>
+                </div>
+                <div class="server-item">
+                    <div class="server-item-info">
+                        <p id="authMessage">No Authentication Needed.</p>
+                    </div>
+                    <div class="server-item-actions">
+                        <button id="openLink" class="secondary">Open Link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js"></script>
+    <script src="js/home.js"></script>
+</body>
