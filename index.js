@@ -3,52 +3,58 @@ const { app, BrowserWindow } = pkg;
 import http from "node:http";
 import { Server } from "socket.io";
 import { spawn } from "child_process";
-import { Worker } from "worker_threads";
+import API from "bedrock-api";
+import open from "open";
 
-const rest = () => {
-    const server = http.createServer();
-    const io = new Server(server);
-    let gsocket = null;
+const pingAPI = new API();
+const server = http.createServer();
+const io = new Server(server);
 
-    const createWindow = () => {
-        const win = new BrowserWindow({
-            width: 800,
-            height: 600
-        })
-        win.setMenu(null);
-        win.setResizable(false);
-        win.loadFile("./desktop-views/index.html")
+const child = spawn("node", ["./src/TBNProxy.js"]);
+child.stdout.pipe(process.stdout)
+child.stderr.pipe(process.stdout);
 
-        const worker = new Worker("./src/TBNProxy.js");
-    };
-
-    app.whenReady().then(() => {
-        createWindow()
+app.whenReady().then(() => {
+    const window = new BrowserWindow({
+        width: 800,
+        height: 500
     });
-    let mysocket = null;
-    let times = 0;
+    window.setResizable(false);
+    window.setMenu(null);
+    window.loadFile("./desktop-views/index.html");
+});
 
-    io.on("connection", (socket) => {
-        if (times < 1) {
-            mysocket = socket;
-            times++;
+let proxyID = -1;
+io.on("connection", (socket) => {
+    console.log("Received new client.");
+    socket.on("verify", (token) => {
+        if (token === "test") {
+            io.emit("verified");
+        }  else {
+            io.emit("failedVerify", "Invalid token.");
         }
-        gsocket = socket;
-        socket.on("begin", (address) => {
-            io.emit("beginProxy", address);
-        });
-        socket.on("proxyConnected", () => {
-            io.emit("info", "Initialized contact with proxy service.");
-        });
-        socket.on("proxyInfo", (info) => {
-           io.to(mysocket.id).emit("info", info);
-        });
-        socket.on("disconnect", () => {
-
+    });
+    socket.on("authInfo", (link, code) => {
+        io.emit("authInfo", link, code);
+    });
+    socket.on("requestBedrockServerInfo", (ip) => {
+        const split = ip.split(":");
+        pingAPI.ping(split[0], split[1], (err, res) => {
+            io.emit("bedrockServerInfo", res);
         });
     });
+    socket.on("proxyFullyConnected", (username) => {
+        io.emit("proxyFullyConnected", username);
+    });
+    socket.on("proxyStart", (address) => {
+        io.emit("beginProxy", address);
+    });
+    socket.on("identifyProxy", () => {
+        proxyID = socket.id;
+    });
+    socket.on("openLink", (link) => {
+        open(link);
+    });
+});
 
-    server.listen(3000);
-}
-
-rest();
+server.listen(3000);

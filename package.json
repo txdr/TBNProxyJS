@@ -6,22 +6,27 @@
   "type": "module",
   "scripts": {
     "test": "node --no-warnings TBNProxy.js",
-    "test-d": "npx electron --trace-warnings --no-sandbox ./index.js",
+    "test-d": "npx electron --trace-warnings --no-sandbox --inspect-electron ./index.js",
     "build": "npx electron-packager ./ TBNProxyFull --platform=win32 --arch=x64"
   },
   "author": "shay",
   "license": "ISC",
   "dependencies": {
     "androidjs": "^2.0.6",
-    "bedrock-protocol": "^3.42.0",
+    "bedrock-api": "^1.0.0",
+    "bedrock-protocol": "^3.42.2",
+    "open": "^10.1.0",
     "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1"
+    "socket.io-client": "^4.8.1",
+    "test-d": "^1.0.0"
   },
   "devDependencies": {
     "electron": "^33.2.1",
     "electron-packager": "^17.1.2"
   },
   "pkg": {
-    "options": ["experimental-modules"]
+    "options": [
+      "experimental-modules"
+    ]
   }
 }

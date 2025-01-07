@@ -8,7 +8,6 @@ import EntityManager from "./entites/EntityManager.js";
 import FormManager from "./forms/FormManager.js";
 import { connect } from "socket.io-client";
 
-
 class TBNProxy {
 
     static instance;
@@ -35,6 +34,7 @@ class TBNProxy {
         this.cheatManager = new CheatManager();
 
         const split = address.split(":");
+        console.log(JSON.stringify(split))
         this.relay = new Relay({
             version: "1.21.50",
             host: "127.0.0.1",
@@ -44,12 +44,7 @@ class TBNProxy {
                 port: parseInt(split[1])
             },
             onMsaCode: (data, client) => {
-                io.emit("proxyInfo", `Please verify @ <a href=\"${data.verification_uri}?otc=${data.user_code}\">${data.verification_uri}?otc=${data.user_code}</ahref>`);
-                client.queue("disconnect", {
-                    reason: "disconnected",
-                    hide_disconnect_reason: false,
-                    message: `Please sign in via microsoft.`
-                });
+                io.emit("authInfo", data.verification_uri, data.user_code);
             },
         });
         this.relay.listen();
@@ -85,8 +80,6 @@ class TBNProxy {
                 cheat.tick();
             }
         }, (1000 / 50));
-
-        console.log(`TBNProxy is running.\nHost: 127.0.0.1:19132\nDestination: ${config.host}:${config.port}`);
     }
 
     /*** @returns TBNProxy*/
@@ -106,13 +99,13 @@ BigInt.prototype.toJSON = function() { return this.toString() };
 function start() {
     const socket = connect("http://localhost:3000");
     socket.on("connect", () => {
-        console.log("TBNClient socket connected.");
-        socket.emit("proxyConnected");
+        socket.emit("identifyProxy");
     });
     socket.on("beginProxy", (address) => {
         new TBNProxy(socket, address);
     });
 }
+
 start();
 
 export default TBNProxy;

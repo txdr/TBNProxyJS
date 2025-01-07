@@ -44,10 +44,13 @@ class CheatSettingsForm extends CustomForm {
             setting.setValue(data[index]);
             index++;
         }
-        if (enabled == "true") {
+        if (enabled === "true" && !this.cheat.isEnabled()) {
             this.cheat.enable();
-        } else {
+        } else if (enabled !== "true" && this.cheat.isEnabled()) {
             this.cheat.disable();
+        } else if (enabled === "true" && this.cheat.isEnabled()) {
+            this.cheat.disable();
+            this.cheat.enable();
         }
         ClientPlayer.getInstance().sendMessage(TBNProxy.CNAME + "aChanged settings for &e" + this.cheat.getName() + "&a.");
     }

@@ -1,59 +1,136 @@
-let bElements = [
-    ...document.getElementsByClassName("home")[0].children,
-    ...document.getElementsByClassName("footer")[0].children
-];
-for (const element of bElements) {
-    if (element.hasAttribute("redir")) {
-        element.addEventListener("click", () => {
-            for (const e of bElements) {
-                e.classList.add("animate__animated", "animate__fadeOut");
-            }
-            setTimeout(() => {
-               window.location.replace(element.getAttribute("redir"));
-            }, 2000);
-        });
-    }
+const socket = io("http://localhost:3000");
+
+function getServers() {
+    return JSON.parse(localStorage.getItem("servers"));
 }
 
-function setTextAnimation(delay, duration, strokeWidth, timingFunction, strokeColor, repeat) {
-    let paths = document.querySelectorAll("path");
-    let mode=repeat?'infinite':'forwards'
-    for (let i = 0; i < paths.length; i++) {
-        const path = paths[i];
-        const length = path.getTotalLength();
-        path.style["stroke-dashoffset"] = `${length}px`;
-        path.style["stroke-dasharray"] = `${length}px`;
-        path.style["stroke-width"] = `${strokeWidth}px`;
-        path.style["stroke"] = `${strokeColor}`;
-        path.style["animation"] = `${duration}s svg-text-anim ${mode} ${timingFunction}`;
-        path.style["animation-delay"] = `${i * delay}s`;
-    }
+function setAuthInfo(link, code) {
+    document.getElementById("authMessage").style.color = "orange";
+    document.getElementById("authMessage").innerHTML = `Your Code Is: ${code}<br/>Press the button below to open the auth link.`;
+    document.getElementById("openLink").disabled = false;
+    document.getElementById("openLink").onclick = () => {
+        document.getElementById("authMessage").innerHTML = "Please wait...";
+        socket.emit("openLink", `${link}?otc=${code}`);
+        document.getElementById("openLink").disabled = true;
+    };
 }
 
-setTextAnimation(0.2, 3.2, 2, 'linear', '#ffffff', false);
+function endAuthInfo() {
+    document.getElementById("authMessage").style.color = "green";
+    document.getElementById("authMessage").innerHTML = "Authenticated";
+    document.getElementById("openLink").remove();
+}
 
-setTimeout(() => {
-    let opacity = 100;
-    const fadeInterval = setInterval(() => {
-        const logo = document.getElementById("logo");
-        opacity -= 1.5;
-        logo.style.opacity = `${opacity}%`;
-        if (opacity < 0) {
-            document.getElementsByClassName("loading-logo")[0].remove();
-            clearInterval(fadeInterval);
-            document.getElementsByClassName("home")[0].style.display = "flex";
-            let timesRan = 0;
-            for (const element of document.getElementsByClassName("home")[0].children) {
-                timesRan += 1;
-                setTimeout(() => {
-                    element.style.opacity = "100%";
-                    element.classList.add("animate__animated", "animate__fadeInDown");
-                }, (0.25 * timesRan) * 1000);
-                setTimeout(() => {
-                    document.getElementsByClassName("footer")[0].style.opacity = "100%";
-                    document.getElementsByClassName("footer")[0].classList.add("animate__animated", "animate__fadeIn");
-                }, (0.25 * 6) * 1000);
-            }
+function setProxyStatus(status, good = false) {
+    document.getElementById("proxyStatus").style.color = good ? "green" : "red";
+    document.getElementById("proxyStatus").innerHTML = "Current Status: " + status;
+}
+
+function setServerInfo(info) {
+    document.getElementById("serverInfo").innerHTML = info;
+}
+
+function proxyStart() {
+    socket.emit("proxyStart", getSelectedServer());
+    setProxyStatus("Connecting");
+}
+
+function removeServer() {
+    let newServers = [];
+    for (const server of getServers()) {
+        if (server === getSelectedServer()) {
+            continue;
         }
-    }, 10);
-}, 3.6 * 1000);
+        newServers.push(server);
+    }
+    localStorage.setItem("servers", JSON.stringify(newServers));
+    updateServers();
+}
+
+function addServer(server) {
+    const servers = getServers();
+    servers.push(server)
+    localStorage.setItem("servers", JSON.stringify(servers));
+    updateServers();
+}
+
+function getSelectedServer() {
+    const select = document.getElementById("serverSelect");
+    return select.options[select.selectedIndex].value;
+}
+
+function updateServers() {
+    document.getElementById("serverSelect").innerHTML = "";
+    for (const item of getServers()) {
+        const newItem = document.createElement("option");
+        newItem.innerHTML = item;
+        document.getElementById("serverSelect").append(newItem);
+    }
+}
+
+function setVerificationMessage(message, error = true) {
+    document.getElementById("verification-error").style.color = error ? "red" : "green";
+    document.getElementById("verification-error").innerHTML = message;
+}
+
+document.getElementById("tokenInput").addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+        socket.emit("verify", document.getElementById("tokenInput").value);
+        document.getElementById("tokenInput").value = "";
+    }
+});
+
+document.getElementById("addServer").addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+        if (document.getElementById("addServer").value.split(":").length < 2) {
+            return;
+        }
+        addServer(document.getElementById("addServer").value);
+        document.getElementById("addServer").value = "";
+    }
+});
+
+socket.on("connect", () => {
+    setVerificationMessage("Connected (BE)", false);
+     console.log("Socket connected.");
+});
+
+socket.on("verified", () => {
+    setVerificationMessage("Key Valid", false);
+    document.getElementById("token").remove();
+    document.getElementById("home").style.display = "grid";
+});
+
+socket.on("failedVerify", (message) => {
+    setVerificationMessage(message);
+});
+
+if (localStorage.getItem("servers") == null) {
+    localStorage.setItem("servers", JSON.stringify([]));
+}
+
+setInterval(() => {
+    socket.emit("requestBedrockServerInfo", getSelectedServer());
+}, 1250);
+
+socket.on("authInfo", (link, code) => {
+    setProxyStatus("Authenticating")
+    setAuthInfo(link, code);
+});
+
+socket.on("proxyFullyConnected", (username) => {
+    endAuthInfo();
+    setProxyStatus(`Connected (${username})`, true);
+});
+
+socket.on("bedrockServerInfo", (res) => {
+    if (res.version == null) {
+        setServerInfo("Server Offline");
+        return;
+    }
+    setServerInfo(`Version: ${res.version}<br/>Players: ${res.currentPlayers}/${res.maxPlayers}`);
+});
+
+document.getElementById("openLink").disabled = true;
+
+updateServers();
