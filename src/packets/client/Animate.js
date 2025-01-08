@@ -1,4 +1,4 @@
-import ClientPlayer from "../../players/ClientPlayer.js";
+    import ClientPlayer from "../../players/ClientPlayer.js";
 import PacketHandler from "../PacketHandler.js";
 
 class Animate extends PacketHandler {

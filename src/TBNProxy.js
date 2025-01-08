@@ -51,6 +51,7 @@ class TBNProxy {
 
         this.relay.on("connect", (player) => {
             this.player = player;
+
             // server -> client
             player.on("clientbound", ({name, params}, des) => {
                 const handled = this.packetManager.handlePacket(name, params, PacketManager.TO_CLIENT);
@@ -90,8 +91,6 @@ class TBNProxy {
     getPlayer() {
         return this.player;
     }
-
-
 };
 
 BigInt.prototype.toJSON = function() { return this.toString() };

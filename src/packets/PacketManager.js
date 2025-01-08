@@ -12,6 +12,7 @@ import AddEntity from "./server/AddEntity.js";
 import SetEntityMotion from "./server/SetEntityMotion.js";
 import CommandRequest from "./client/CommandRequest.js";
 import ModalFormResponse from "./client/ModalFormResponse.js";
+import Transfer from "./server/Transfer.js";
 
 class PacketManager {
 
@@ -27,6 +28,7 @@ class PacketManager {
         this.clientboundHandlers.set("mob_effect", new MobEffect());
         this.clientboundHandlers.set("add_entity", new AddEntity());
         this.clientboundHandlers.set("set_entity_motion", new SetEntityMotion());
+        this.clientboundHandlers.set("transfer", new Transfer());
 
         this.serverboundHandlers = new Map();
         this.serverboundHandlers.set("set_local_player_as_initialized", new SetLocalPlayerAsInitialized());
