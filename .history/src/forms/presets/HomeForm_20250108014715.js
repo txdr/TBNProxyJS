@@ -5,17 +5,17 @@ import TextUtils from "../../utils/TextUtils.js";
 
 class CategoryForm extends MenuForm {
     constructor(title, cheats, prefix, icon) {
-        super(`§l${icon} ${title}`, "§b§lAvailable Cheats:");
+        super(`${icon} ${title}`, "§b§lSelect a cheat to configure:");
         this.addCheatsToForm(cheats, prefix);
-        this.addButton("§l§8« §r§7Back to Menu§l§8 »", "back");
+        this.addButton("§7Back to Menu", "back");
     }
 
     addCheatsToForm(cheatNames, prefix) {
         for (const name of cheatNames) {
             const cheat = CheatManager.getInstance().getCheat(name);
             if (cheat) {
-                const status = cheat.isEnabled() ? "§l§aENABLED" : "§l§cDISABLED";
-                this.addButton(`§l${prefix}${TextUtils.capitalizeFirstLetter(cheat.getName())}\n§r${status}`, cheat.getName());
+                const status = cheat.isEnabled() ? "§aEnabled" : "§cDisabled";
+                this.addButton(`${prefix}${TextUtils.capitalizeFirstLetter(cheat.getName())}\n${status}`, cheat.getName());
             }
         }
     }
@@ -31,13 +31,13 @@ class CategoryForm extends MenuForm {
 
 class HomeForm extends MenuForm {
     constructor() {
-        super("§l§b✧ §d§lTBNClient §b§l✧", "§e§lSelect a Category:");
+        super("§l§bTBNClient", "§e§lSelect a category:");
         
-        this.addButton("§l§c⚔ COMBAT §r§7\n§l➥ §r§7Reach, KillAura, HitBox", "combat");
-        this.addButton("§l§a➜ MOVEMENT §r§7\n§l➥ §r§7Speed, AirJump", "movement");
-        this.addButton("§l§b👁 VISUAL §r§7\n§l➥ §r§7NightVision", "visual");
-        this.addButton("§l§d❤ PLAYER §r§7\n§l➥ §r§7Regeneration", "player");
-        this.addButton("§l§8« §r§7Close Menu§l§8 »", "close");
+        this.addButton("§c⚔ Combat\n§7Reach, KillAura, etc.", "combat");
+        this.addButton("§a➜ Movement\n§7Speed, AirJump, etc.", "movement");
+        this.addButton("§b👁 Visual\n§7NightVision", "visual");
+        this.addButton("§d❤ Player\n§7Regeneration", "player");
+        this.addButton("§7Close Menu", "close");
     }
 
     handle(data) {
@@ -47,25 +47,25 @@ class HomeForm extends MenuForm {
 
         const categories = {
             combat: {
-                title: "§cCOMBAT",
+                title: "Combat",
                 cheats: ["reach", "hitbox", "killaura", "knockback"],
                 prefix: "§c⚔ ",
                 icon: "⚔"
             },
             movement: {
-                title: "§aMOVEMENT",
+                title: "Movement",
                 cheats: ["speed", "airjump"],
                 prefix: "§a➜ ",
                 icon: "➜"
             },
             visual: {
-                title: "§bVISUAL",
+                title: "Visual",
                 cheats: ["nightvision"],
                 prefix: "§b👁 ",
                 icon: "👁"
             },
             player: {
-                title: "§dPLAYER",
+                title: "Player",
                 cheats: ["regeneration"],
                 prefix: "§d❤ ",
                 icon: "❤"
