@@ -20,11 +20,15 @@ class TBNProxy {
 
     static io = null;
 
-    constructor(io, address) {
+    static afterFirst = false;
+
+    constructor(io, address, port = 19132, afterFirst = false) {
         TBNProxy.io = io;
         TBNProxy.instance = this;
+        TBNProxy.afterFirst = afterFirst;
 
         this.player = null;
+        this.port = port;
         TBNProxy.CMD_PREFIX = config.prefix;
         this.packetManager = new PacketManager();
         new PlayerManager();
@@ -34,11 +38,10 @@ class TBNProxy {
         this.cheatManager = new CheatManager();
 
         const split = address.split(":");
-        console.log(JSON.stringify(split))
         this.relay = new Relay({
             version: "1.21.50",
             host: "127.0.0.1",
-            port: 19132,
+            port: port,
             destination: {
                 host: split[0],
                 port: parseInt(split[1])
@@ -91,6 +94,16 @@ class TBNProxy {
     getPlayer() {
         return this.player;
     }
+
+    newProxy(address, port) {
+        this.port += 2;
+        setTimeout(() => {
+            new TBNProxy(TBNProxy.io, `${address}:${port}`, this.port, true);
+            this.relay.close();
+        }, 2000);
+        return this.port;
+    }
+
 };
 
 BigInt.prototype.toJSON = function() { return this.toString() };
@@ -108,4 +121,21 @@ function start() {
 start();
 
 export default TBNProxy;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

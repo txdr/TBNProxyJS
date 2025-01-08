@@ -1,5 +1,5 @@
 import pkg from "electron";
-const { app, BrowserWindow } = pkg;
+const { app, BrowserWindow, Notification } = pkg;
 import http from "node:http";
 import { Server } from "socket.io";
 import { spawn } from "child_process";
@@ -14,11 +14,13 @@ const child = spawn("node", ["./src/TBNProxy.js"]);
 child.stdout.pipe(process.stdout)
 child.stderr.pipe(process.stdout);
 
+let window;
 app.whenReady().then(() => {
-    const window = new BrowserWindow({
+    window = new BrowserWindow({
         width: 800,
-        height: 500
+        height: 500,
     });
+
     window.setResizable(false);
     window.setMenu(null);
     window.loadFile("./desktop-views/index.html");

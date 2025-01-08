@@ -194,6 +194,14 @@ class ClientPlayer {
         });
     }
 
+    transfer(address, port) {
+        this.player.queue("transfer", {
+            server_address: address,
+            port: port,
+            reload_world: false
+        })
+    }
+
     /*** @returns ClientPlayer*/
     static getInstance() {
         return ClientPlayer.instance;
